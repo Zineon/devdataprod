@@ -1,0 +1,18 @@
+---
+title       : Presentation for Developing Data Products
+subtitle    : 
+author      : Neelajit Chandra
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Slide 2
+
+This is a reproducible pitch presentation for the shiny app developed as part of the Developing Data Products Course
+
+
