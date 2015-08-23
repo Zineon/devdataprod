@@ -1,31 +1,25 @@
-
 library(shiny)
+library(ggplot2)
 
-shinyServer(
-
-function(input, output, session) {
-  # Define a reactive expression for the document term matrix
-  terms <- reactive({
-    # Change when the "update" button is pressed...
-    input$update
-    # ...but not for anything else
-    isolate({
-      withProgress({
-        setProgress(message = "Processing corpus...")
-        getTermMatrix(input$selection)
-      })
-    })
-  })
+function(input, output) {
   
-  # Make the wordcloud drawing predictable during a session
-  wordcloud_rep <- repeatable(wordcloud)
+  dataset <- reactive({
+    diamonds[sample(nrow(quakes), input$sampleSize, replace = T),]
+  })
   
   output$plot <- renderPlot({
-    v <- terms()
-    wordcloud_rep(names(v), v, scale=c(3,0.5),
-                  min.freq = input$freq, max.words=input$max,
-                  colors=brewer.pal(8, "Dark2"))
-  })
+    
+    g <- ggplot(dataset(), aes_string(x=input$x, y=input$y)) + geom_point()
+    
+    if (input$color != 'None')
+      g <- g + aes_string(color=input$color)
+    
+    facets <- paste(input$facet_row, '~', input$facet_col)
+    if (facets != '. ~ .')
+      g <- g + facet_grid(facets)
+    
+    print(g)
+    
+  }, height=500)
+  
 }
-
-)
