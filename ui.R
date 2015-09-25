@@ -3,9 +3,9 @@ library(ggplot2)
 
 dataset <- diamonds
 
-fluidPage(
+shinyUI(pageWithSidebar(
   
-  titlePanel("Diamond Characteristics"),
+  headerPanel("Diamonds Explorer"),
   
   sidebarPanel(
     
@@ -16,11 +16,11 @@ fluidPage(
     selectInput('y', 'Y', names(dataset), names(dataset)[[2]]),
     selectInput('color', 'Color', c('None', names(dataset))),
     
-    selectInput('facet_row', 'Facet Row', c(None='.', names(dataset))),
-    selectInput('facet_col', 'Facet Column', c(None='.', names(dataset)))
+    selectInput('facet_v', 'Vertical Facet', c(None='.', names(dataset))),
+    selectInput('facet_h', 'Horizontal Facet', c(None='.', names(dataset)))
   ),
   
   mainPanel(
     plotOutput('plot')
   )
-)
+))
